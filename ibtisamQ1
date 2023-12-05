@@ -1,0 +1,39 @@
+graph = {
+    'V1': {'V2': 9, 'V3': 4},
+    'V2': {'V1': 9, 'V3': 2, 'V4': 7, 'V5': 3},
+    'V3': {'V1': 4, 'V2': 2, 'V5': 6, 'V4': 1},
+    'V4': {'V2': 7, 'V3': 1, 'V5': 4, 'V6': 8},
+    'V5': {'V2': 3, 'V3': 6, 'V4': 4, 'V6': 2},
+    'V6': {'V4': 8, 'V5': 2}
+}
+
+import heapq
+
+def ucs(graph, start, goal):
+    visited = set()
+    queue = [(0, start, [])]  # (cost, node, path_taken)
+    
+    while queue:
+        cost, node, path = heapq.heappop(queue)
+        if node not in visited:
+            visited.add(node)
+            path = path + [node]
+            
+            if node == goal:
+                return path
+            
+            for neighbor, edge_cost in graph[node].items():
+                if neighbor not in visited:
+                    heapq.heappush(queue, (cost + edge_cost, neighbor, path))
+    
+    return None
+
+# Define the order of vertices to visit
+order = ['V1', 'V3', 'V4', 'V5', 'V6']
+
+# Traverse the graph based on the defined order
+for i in range(len(order) - 1):
+    start = order[i]
+    goal = order[i + 1]
+    path = ucs(graph, start, goal)
+    print(f"Path from {start} to {goal}: {path}")
