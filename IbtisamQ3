@@ -1,0 +1,18 @@
+# Initializing list 'a' with tuples
+a = [(1,), (2, 3), (4, 5, 6)]
+
+# Outputting the second element of the second tuple within 'a'
+second_element_second_tuple = a[1][1]
+print(second_element_second_tuple)
+
+# Establishing list 'b' containing four sublists, each with four elements
+b = [
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    [9, 10, 11, 12],
+    [13, 14, 15, 16]
+]
+
+# Displaying the last two elements of the first sublist within 'b'
+last_two_elements_first_sublist = b[0][-2:]
+print(last_two_elements_first_sublist)
