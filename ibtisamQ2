@@ -1,0 +1,36 @@
+from collections import defaultdict, deque
+
+# Function for BFS traversal
+def bfs_traversal(graph, start, goal):
+    visited = set()
+    queue = deque([(start, [start])])  # Using a tuple to store the node and its path
+    traversal_order = []
+
+    while queue:
+        vertex, path = queue.popleft()
+        if vertex == goal:
+            traversal_order = path
+            break
+
+        if vertex not in visited:
+            visited.add(vertex)
+            for neighbor in graph[vertex]:
+                if neighbor not in visited:
+                    queue.append((neighbor, path + [neighbor]))
+
+    return traversal_order
+
+# Initializing the graph
+graph = {
+    'A': {'B', 'C'},
+    'B': {'A', 'D', 'E'},
+    'C': {'A', 'F', 'G'},
+    'D': {'B'},
+    'E': {'B'},
+    'F': {'C'},
+    'G': {'C'}
+}
+
+# Starting BFS traversal from node 'A' to reach node 'G'
+result = bfs_traversal(graph, 'A', 'G')
+print("BFS Traversal Order:", result)
